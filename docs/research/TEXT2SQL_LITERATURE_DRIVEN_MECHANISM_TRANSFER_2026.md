@@ -31,14 +31,14 @@ The current frontier is important because many seemingly novel ideas are already
 
 ## 2.1 Enterprise Text2SQL is now an agent problem
 
-**Spider 2.0** moves far beyond Spider 1.0: 632 real enterprise workflows, often >1,000 columns, Snowflake/BigQuery, dialect documentation, project code, and queries that can exceed 100 lines. The original code-agent baseline solved only 17% while being much stronger on older benchmarks.
+**Spider 2.0** moves far beyond Spider 1.0: 632 real-world enterprise workflow problems, often with >1,000 columns, Snowflake/BigQuery dialects, external knowledge and project context. Its paper reports that an o1-preview-based code agent solved only about 17% of tasks despite much stronger performance on earlier Text2SQL benchmarks.
 
 Reference: Lei et al., *Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows*, 2024.  
 https://arxiv.org/abs/2411.07763
 
-**BIRD-Interact** makes interaction itself part of the task. It provides hierarchical knowledge, metadata, a user simulator, CRUD tasks, and open-ended agentic interaction. Its reported results show that even GPT-5 solves only 17% in the agentic setting.
+**BIRD-Interact** makes interaction itself part of the task, with conversational and agentic database-interaction settings, hierarchical knowledge, a user simulator, and CRUD-style behavior. Reported success remains low even for strong contemporary models.
 
-Reference: Huo et al., *BIRD-INTERACT*, 2025.  
+Reference: Huo et al., *BIRD-INTERACT: Reimagining Text-to-SQL Evaluation via Lens of Dynamic Interactions*, 2025.  
 https://arxiv.org/abs/2510.05318
 
 Implication: a proposal that merely adds ReAct, schema tools, or iterative execution is no longer differentiated.
@@ -47,7 +47,7 @@ Implication: a proposal that merely adds ReAct, schema tools, or iterative execu
 
 **ReFoRCE** uses table compression, output-format restriction, iterative column exploration, self-refinement, parallel workflows, and voting for Spider 2.0.
 
-Reference: Deng et al., *ReFoRCE*, ICLR 2025 Workshop.  
+Reference: Deng et al., *ReFoRCE: A Text-to-SQL Agent with Self-Refinement, Format Restriction and Column Exploration*, 2025.  
 https://arxiv.org/abs/2502.00675
 
 **FlexSQL** makes exploration and execution available throughout reasoning, generates multiple execution plans, can use SQL or Python, and backtracks from code-level errors to plan-level revisions.
@@ -55,7 +55,7 @@ https://arxiv.org/abs/2502.00675
 Reference: Pham et al., *FlexSQL: Flexible Exploration and Execution Make Better Text-to-SQL Agents*, 2026.  
 https://arxiv.org/abs/2605.02815
 
-**AV-SQL** introduces agent-generated views / CTEs as intermediate structures and reports strong Spider 2.0 performance.
+**AV-SQL** introduces agent-generated views / CTEs as intermediate structures for decomposing complex Text2SQL tasks.
 
 Reference: Pham et al., *AV-SQL: Decomposing Complex Text-to-SQL Queries with Agentic Views*, 2026.  
 https://arxiv.org/abs/2604.07041
@@ -64,17 +64,17 @@ Implication: “let the agent inspect columns, generate CTEs, execute, and revis
 
 ## 2.3 Memory and autonomous evolution are also occupied
 
-**AgentSM** stores reusable structured semantic programs derived from prior traces, reporting lower token use and shorter trajectories plus higher Spider 2.0 Lite accuracy.
+**AgentSM** stores reusable structured semantic programs derived from prior traces and reports gains in both performance and trajectory efficiency on Spider 2.0 Lite.
 
 Reference: Biswal et al., *AgentSM: Semantic Memory for Agentic Text-to-SQL*, 2026.  
 https://arxiv.org/abs/2601.15709
 
-**MIRA** (August 2026) decomposes historical corrections into reusable repair-memory items, checks them against current database evidence, and adapts supported repair items to the current SQL. This directly raises the bar for any “failure memory” proposal.
+**MIRA** (August 2026) decomposes historical corrections into reusable repair-memory items, verifies candidate memories against current database evidence, and adapts supported repair items to the current SQL. This directly raises the bar for any “failure memory” proposal.
 
 Reference: Liu et al., *MIRA: Evidence-Verified Repair Memory for Text-to-SQL Correction*, 2026.  
 https://arxiv.org/abs/2608.06950
 
-**RoboPhD** already applies autonomous agent evolution to Text2SQL, evolving a database-analysis script and SQL-generation instructions over iterations.
+**RoboPhD** already applies autonomous agent evolution to Text2SQL, evolving database-analysis and SQL-generation behavior over iterative experiments.
 
 Reference: Borthwick & Ash, *RoboPhD: Self-Improving Text-to-SQL Through Autonomous Agent Evolution*, 2026.  
 https://arxiv.org/abs/2601.01126
@@ -83,12 +83,12 @@ Implication for AutoResearchClaw: “autonomously evolve a Text2SQL agent” is 
 
 ## 2.4 Robustness and business realism are becoming explicit problems
 
-Kanchinadam et al. generate equivalent relational schemas from a common E/R model and show that LLM Text2SQL behavior can change substantially even when underlying data and questions stay fixed. Providing the conceptual E/R specification helps but does not eliminate the inconsistency.
+Kanchinadam et al. construct equivalent relational schemas from a shared conceptual model and show that Text2SQL behavior can change substantially even when underlying information needs remain equivalent. Exposing the conceptual E/R structure helps but does not remove the robustness problem.
 
 Reference: Kanchinadam et al., *Same Data, Different Schemas: Robustness of LLM-based Text-to-SQL*, 2026.  
 https://arxiv.org/abs/2605.25838
 
-Business Logic-Driven Text-to-SQL synthesis shows that business personas, scenarios, and workflows are necessary for realistic BI evaluation, and strong systems remain weak on the most complex business queries.
+Business Logic-Driven Text-to-SQL synthesis argues that personas, scenarios, and workflows are necessary for realistic BI evaluation, with complex business queries remaining challenging.
 
 Reference: Liu et al., *Business Logic-Driven Text-to-SQL Data Synthesis for Business Intelligence*, 2026.  
 https://arxiv.org/abs/2601.14518
@@ -105,12 +105,12 @@ This suggests an underexplored frontier: **the hidden semantics of organizations
 
 Traditional process mining reconstructs process behavior from event logs. Object-centric process mining was developed because ERP/CRM data cannot always be represented faithfully as one case-id sequence: multiple interacting objects such as orders, invoices, shipments, customers, and payments participate in the same process.
 
-Berti, Montali, and van der Aalst survey OCPM and explicitly motivate it by the limitations of classical event logs in prevalent CRM/ERP information systems.
+Berti, Montali, and van der Aalst survey OCPM and explicitly motivate it by limitations of classical event logs for information systems with interacting business objects.
 
 Reference: Berti et al., *Advancements and Challenges in Object-Centric Process Mining: A Systematic Literature Review*, 2023.  
 https://arxiv.org/abs/2311.08795
 
-There is also direct evidence that process constraints can be queried in SQL, and recent work has started building Text2SQL datasets for process-mining queries.
+There is also direct evidence connecting SQL and process-mining tasks, including declarative process queries expressed over relational event logs and recent Text2SQL-oriented process-mining datasets.
 
 References:  
 Schönig, *SQL Queries for Declarative Process Mining on Event Logs of Relational Databases*, 2015. https://arxiv.org/abs/1512.00196  
@@ -193,7 +193,7 @@ Metrics:
 ## Novelty / feasibility
 
 Novelty: **high**, with adjacent process-mining/Text2SQL work but a different runtime mechanism.  
-Feasibility: **medium-high** because PM4Py/OCPM tooling already exists and synthetic ERP processes are easy to generate.
+Feasibility: **medium-high** because mature process-mining tooling exists and synthetic ERP processes are easy to generate.
 
 ---
 
@@ -201,15 +201,15 @@ Feasibility: **medium-high** because PM4Py/OCPM tooling already exists and synth
 
 ## Source field
 
-**Belief revision**, truth-maintenance systems, and dynamic epistemic logic.
+**Belief revision**, truth-maintenance systems, and dynamic knowledge bases.
 
-The AGM tradition studies how an agent should incorporate new information while making rational, often minimal, changes to prior beliefs. Truth-maintenance systems were an early computer-science precursor. Modern work continues to study belief-base revision and minimal change.
+The AGM tradition studies how an agent should incorporate new information while making rational, often minimal, changes to prior beliefs. Truth-maintenance systems are an important computer-science precursor. Modern work continues to study belief-base and theory-base revision.
 
 References:  
 Stanford Encyclopedia of Philosophy, *Logic of Belief Revision*, substantive revision 2026. https://plato.stanford.edu/entries/logic-belief-revision/  
 Fermé, Herzig & Martinez, *On the Logic of Theory Base Change*, AAAI 2025. https://ojs.aaai.org/index.php/AAAI/article/view/33636
 
-The transfer is especially motivated by evidence that LLMs themselves are weak belief revisers: Belief-R shows models struggle to update prior conclusions appropriately when new evidence arrives and that aggressive updating can hurt cases where no update is needed.
+The transfer is especially motivated by evidence that LLMs themselves are imperfect belief revisers: Belief-R studies whether models appropriately update prior reasoning in response to new evidence and reports substantial difficulty balancing revision with preservation of still-valid beliefs.
 
 Reference: Wilie et al., *Belief Revision: The Adaptability of Large Language Models Reasoning*, 2024.  
 https://arxiv.org/abs/2406.19764
@@ -397,7 +397,7 @@ Report per-phenomenon accuracy, not only aggregate success.
 
 ## Novelty / feasibility
 
-Novelty: **high**; conversational Text2SQL exists, but formal dynamic-semantics-inspired state appears underexplored.  
+Novelty: **high**; conversational Text2SQL exists, but formal dynamic-semantics-inspired state appears underexplored in the literature reviewed here.  
 Feasibility: **high** for a constrained first version.
 
 ---
@@ -414,7 +414,7 @@ References:
 de Souza, Chaim & Kon, *Spectrum-based Software Fault Localization: A Survey of Techniques, Advances, and Challenges*, 2016. https://arxiv.org/abs/1607.04347  
 Sasirekha et al., *Program slicing techniques and its applications*, 2011. https://arxiv.org/abs/1108.1352
 
-Text2SQL repair is already active. A mutation-based repair method showed many failed predictions are close to correct; MapleRepair provides a detailed error taxonomy and reports that naive repair can incur high overhead and mis-repair; MIRA improves repair-memory reuse.
+Text2SQL repair is already active. A mutation-based repair method showed many failed predictions are close to correct; MapleRepair provides a detailed error taxonomy and argues that naive repair can incur high overhead and mis-repair; MIRA improves repair-memory reuse.
 
 References:  
 Yang et al., *On Repairing Natural Language to SQL Queries*, 2023. https://arxiv.org/abs/2310.03866  
@@ -501,7 +501,7 @@ Constraint acquisition attempts to learn a symbolic constraint model from exampl
 Reference: Tsouros, Berden & Guns, *Learning to Learn in Interactive Constraint Acquisition*, 2023.  
 https://arxiv.org/abs/2312.10795
 
-The reported methods use classifiers to guide query generation, scope finding, and constraint identification, reducing required interaction queries by up to 72% in their evaluated settings.
+The reported methods use classifiers to guide query generation, scope finding, and constraint identification, substantially reducing the interaction queries required in their evaluated settings.
 
 ## Key transfer
 
@@ -565,7 +565,7 @@ Metrics:
 
 ## Novelty / feasibility
 
-Novelty: **very high**.  
+Novelty: **very high** relative to the Text2SQL literature reviewed here.  
 Feasibility: **medium-high**, especially with a user simulator and synthetic hidden rules.
 
 ---
@@ -576,7 +576,7 @@ Feasibility: **medium-high**, especially with a user simulator and synthetic hid
 
 **Consistent Query Answering (CQA)** and database repairs.
 
-CQA starts from a different premise than almost all Text2SQL work: the SQL may be perfectly correct while the **database violates integrity constraints**. An answer is considered consistent when it holds across all minimal repairs of the inconsistent database.
+CQA starts from a different premise than almost all Text2SQL work: the SQL may be perfectly correct while the **database violates integrity constraints**. An answer is considered consistent when it holds across all admissible repairs of the inconsistent database under the chosen repair semantics.
 
 Foundational and systems references:
 
@@ -625,7 +625,7 @@ CQA-Agent asks an orthogonal question:
 
 > “Is the answer well-defined under imperfections of the underlying database?”
 
-Searches of the reviewed Text2SQL literature did not reveal CQA as a standard agent component, making this a potentially distinctive database-theory contribution.
+In the Text2SQL papers reviewed for this spike, CQA did not appear as a standard agent component; that makes this a promising novelty claim to investigate more rigorously before publication.
 
 ## Falsifiable hypothesis
 
@@ -639,7 +639,7 @@ Publish:
 
 - integrity constraints;
 - conflict sets;
-- minimal repair semantics;
+- repair semantics;
 - certain / possible answer labels.
 
 Metrics:
@@ -653,7 +653,7 @@ Metrics:
 
 ## Novelty / feasibility
 
-Novelty: **very high**.  
+Novelty: **very high**, subject to a dedicated novelty search before paper submission.  
 Feasibility: **medium**; start with keys, FDs, and denial constraints where mature CQA algorithms exist.
 
 ---
@@ -664,12 +664,12 @@ Feasibility: **medium**; start with keys, FDs, and denial constraints where matu
 
 **Database workload mining**, relational learning, and inductive logic programming.
 
-Query-log research has long observed that analyst SQL contains knowledge absent from schemas. Wahl & Lenz explicitly describe SQL logs as dynamic documentation containing the purpose, semantics, vocabulary, associations, and temporal/social usage context of data sources.
+Query-log research has long observed that analyst SQL contains knowledge absent from schemas. Wahl & Lenz describe SQL logs as a form of dynamic documentation containing expert knowledge about purpose, semantics, vocabulary, associations, and usage context of data sources.
 
 Reference: Wahl & Lenz, *Analyzing SQL Query Logs using Multi-Relational Graphs*, 2017.  
 https://ceur-ws.org/Vol-1917/paper01.pdf
 
-Large-scale workload-mining systems also demonstrate that business-level query patterns can be mined from production SQL workloads.
+Large-scale workload-mining systems also demonstrate that recurring query patterns can be mined from production SQL workloads.
 
 Reference: Wang et al., *Real-time Workload Pattern Analysis for Large-scale Cloud Databases*, 2023.  
 https://arxiv.org/abs/2307.02626
@@ -826,7 +826,7 @@ Measure task success and exception-specific accuracy.
 
 ## Novelty / feasibility
 
-Novelty: **high**.  
+Novelty: **high** relative to the literature reviewed here.  
 Feasibility: **medium-high** with a small Datalog/ASP/default-rule engine or a deterministic priority-rule implementation.
 
 ---
@@ -883,7 +883,7 @@ A. query semantics are wrong
 B. query is right, database is inconsistent
 ```
 
-Most LLM repair loops conflate these.
+Most LLM repair loops risk conflating these.
 
 A joint diagnostic system first asks:
 
@@ -918,6 +918,8 @@ Ranking is based on differentiation from the current 2026 Text2SQL frontier, exp
 | 7 | **QueryArchaeology** | 4 | 4 | 4 | AgentSM/MIRA show memory value; rule induction is the next abstraction level |
 | 8 | **DefaultSQL** | 4.5 | 4 | 4 | Explicit exceptions match real business semantics better than flat glossaries |
 
+The scores are research-prioritization judgments, not literature-derived quantitative measurements.
+
 ---
 
 # 13. What I would test first
@@ -929,7 +931,7 @@ Why first:
 - requires no new massive benchmark;
 - can inject known semantic faults into existing SQL;
 - has objective localization ground truth;
-- easy equal-budget comparison against self-refinement, MapleRepair-style rules, and MIRA-like repair memory;
+- easy equal-budget comparison against self-refinement, rule-based repair, and MIRA-like repair memory;
 - produces reusable instrumentation for AutoResearchClaw failure analysis.
 
 Minimal thesis:
